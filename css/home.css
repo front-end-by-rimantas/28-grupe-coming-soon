@@ -114,6 +114,7 @@ footer.container {
   text-align: center;
   color: #fffb;
   font-size: 18px;
+  line-height: 1.6em;
 }
 .footer-logo {
   height: 50px;
@@ -127,6 +128,21 @@ footer.container {
   gap: 0 30px;
 }
 .multi-text > div {
+  position: relative;
+}
+.multi-text > div::before {
+  display: inline-block;
+  content: '';
+  width: 1px;
+  height: 15px;
+  background-color: var(--color-light);
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.multi-text > div:first-of-type::before {
+  display: none;
 }
 .bottom-texts > p {
 }
@@ -138,5 +154,8 @@ footer.container {
 @media (max-width: 640px) {
   .multi-text {
     flex-direction: column;
+  }
+  .multi-text > div::before {
+    display: none;
   }
 }
