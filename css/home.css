@@ -78,6 +78,9 @@ main > .row-big > div {
 .section-description > a:hover {
   text-decoration: underline;
 }
+main form > button {
+  float: right;
+}
 
 /* FOOTER SECTION */
 footer.container {
