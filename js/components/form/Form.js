@@ -5,6 +5,11 @@ class Form {
         this.formDOM = null;
         this.allInputsDOM = [];
         this.submitButtonDOM = null;
+        this.validations = {
+            name: this.isValidName,
+            email: this.isValidEmail,
+            text: this.isValidText,
+        };
 
         this.init();
     }
@@ -32,28 +37,24 @@ class Form {
     }
 
     isValidName(name) {
-        if (this.isEmptyString(name)) {
+        if (typeof name !== 'string' || name === '') {
             return false;
         }
         return true;
     }
 
     isValidEmail(email) {
-        if (this.isEmptyString(email)) {
+        if (typeof email !== 'string' || email === '') {
             return false;
         }
         return true;
     }
 
     isValidText(text) {
-        if (this.isEmptyString(text)) {
+        if (typeof text !== 'string' || text === '') {
             return false;
         }
         return true;
-    }
-
-    isEmptyString(string) {
-        return typeof string !== 'string' || string === '';
     }
 
     addEvents() {
@@ -69,15 +70,7 @@ class Form {
                 const validationRule = inputDOM.dataset.validation;
                 const value = inputDOM.value;
 
-                if (validationRule === 'email' && !this.isValidEmail(value)) {
-                    allGood = false;
-                    break;
-                }
-                if (validationRule === 'name' && !this.isValidName(value)) {
-                    allGood = false;
-                    break;
-                }
-                if (validationRule === 'text' && !this.isValidText(value)) {
+                if (!this.validations[validationRule](value)) {
                     allGood = false;
                     break;
                 }
