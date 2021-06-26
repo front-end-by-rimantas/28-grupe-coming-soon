@@ -14,4 +14,4 @@ new Clock('#clock_1', clockData);
 new Progressbar('.left-column', progressBarData);
 new SocialsOOP('footer .socials', socialsData);
 new Form('.hero form');
-// new Form('main form');
+new Form('main form');
