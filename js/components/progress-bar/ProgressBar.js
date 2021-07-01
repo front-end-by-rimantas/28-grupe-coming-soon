@@ -4,6 +4,8 @@ class Progressbar {
         this.data = data;
 
         this.DOM = null;
+        this.allProgressBarDOM = null;
+        this.animatedElementsCount = 0;
 
         this.init();
     }
@@ -22,6 +24,7 @@ class Progressbar {
         }
 
         this.render();
+        this.addEvents();
     }
 
     isValidSelector() {
@@ -58,6 +61,27 @@ class Progressbar {
         }
 
         this.DOM.innerHTML += HTML;
+        this.allProgressBarDOM = this.DOM.querySelectorAll('.progress-bar');
+    }
+
+    addEvents() {
+        window.addEventListener('scroll', () => {
+            if (this.animatedElementsCount === this.allProgressBarDOM.length) {
+                return;
+            }
+
+            const screenBottom = window.scrollY + window.innerHeight;
+            this.animatedElementsCount = 0;
+
+            for (const progressBarDOM of this.allProgressBarDOM) {
+                const progressBarBottom = progressBarDOM.offsetTop + progressBarDOM.offsetHeight;
+
+                if (screenBottom >= progressBarBottom) {
+                    progressBarDOM.classList.add('loading');
+                    this.animatedElementsCount++;
+                }
+            }
+        })
     }
 }
 
